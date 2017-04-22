@@ -20,6 +20,8 @@ import java.io.IOException;
 import ru.improvegroup.jokeandroidlibrary.BundleConfig;
 import ru.improvegroup.jokeandroidlibrary.JokeShowActivity;
 
+import static com.udacity.gradle.builditbigger.BuildConfig.IP_ADDRESS;
+
 /**
  * Created by Diana.Raspopova on 4/22/2017.
  */
@@ -30,7 +32,7 @@ class EndpointsAsyncTask extends AsyncTask<Pair<Context, String>, Void, String> 
     private ProgressDialog progress;
 
     EndpointsAsyncTask(AppCompatActivity activity) {
-        context=activity;
+        context = activity;
         progress = new ProgressDialog(activity);
     }
 
@@ -43,8 +45,7 @@ class EndpointsAsyncTask extends AsyncTask<Pair<Context, String>, Void, String> 
                     // options for running against local devappserver
                     // - 10.0.2.2 is localhost's IP address in Android emulator
                     // - turn off compression when running against local devappserver
-                    // .setRootUrl("http://192.168.1.154:8080/_ah/api/")
-                    .setRootUrl("http://principal-oxide-136623.appspot.com/_ah/api/")
+                    .setRootUrl("http://" + IP_ADDRESS + ":8080/_ah/api/")
                     .setGoogleClientRequestInitializer(new GoogleClientRequestInitializer() {
                         @Override
                         public void initialize(AbstractGoogleClientRequest<?> abstractGoogleClientRequest) throws IOException {
