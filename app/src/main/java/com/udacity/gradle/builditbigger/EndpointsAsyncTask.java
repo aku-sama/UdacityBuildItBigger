@@ -24,18 +24,19 @@ import ru.improvegroup.jokeandroidlibrary.JokeShowActivity;
  * Created by Diana.Raspopova on 4/22/2017.
  */
 
-public class EndpointsAsyncTask extends AsyncTask<Pair<Context, String>, Void, String> {
+class EndpointsAsyncTask extends AsyncTask<Pair<Context, String>, Void, String> {
     private static MyApi myApiService = null;
     private Context context;
-    ProgressDialog progress;
+    private ProgressDialog progress;
 
-    public EndpointsAsyncTask(AppCompatActivity activity) {
+    EndpointsAsyncTask(AppCompatActivity activity) {
         context=activity;
         progress = new ProgressDialog(activity);
     }
 
+    @SafeVarargs
     @Override
-    protected String doInBackground(Pair<Context, String>... params) {
+    protected final String doInBackground(Pair<Context, String>... params) {
         if (myApiService == null) {  // Only do this once
             MyApi.Builder builder = new MyApi.Builder(AndroidHttp.newCompatibleTransport(),
                     new AndroidJsonFactory(), null)
