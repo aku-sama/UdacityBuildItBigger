@@ -1,9 +1,12 @@
 package com.udacity.gradle.builditbigger;
 
+import android.app.Application;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v4.util.Pair;
+import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 
 import com.example.joke.backend.myApi.MyApi;
@@ -24,6 +27,12 @@ import ru.improvegroup.jokeandroidlibrary.JokeShowActivity;
 public class EndpointsAsyncTask extends AsyncTask<Pair<Context, String>, Void, String> {
     private static MyApi myApiService = null;
     private Context context;
+    ProgressDialog progress;
+
+    public EndpointsAsyncTask(AppCompatActivity activity) {
+        context=activity;
+        progress = new ProgressDialog(activity);
+    }
 
     @Override
     protected String doInBackground(Pair<Context, String>... params) {
@@ -57,7 +66,17 @@ public class EndpointsAsyncTask extends AsyncTask<Pair<Context, String>, Void, S
     }
 
     @Override
+    protected void onPreExecute() {
+        super.onPreExecute();
+        progress.setMessage(context.getString(R.string.progress_text));
+        progress.show();
+    }
+
+    @Override
     protected void onPostExecute(String result) {
+        if (progress.isShowing()) {
+            progress.dismiss();
+        }
         Intent intent = new Intent(context, JokeShowActivity.class);
         intent.putExtra(BundleConfig.JOKE, result);
         context.startActivity(intent);

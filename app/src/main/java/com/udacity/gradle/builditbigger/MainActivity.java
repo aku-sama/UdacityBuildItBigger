@@ -10,7 +10,6 @@ import android.view.MenuItem;
 import android.view.View;
 
 
-
 public class MainActivity extends AppCompatActivity {
 
     @Override
@@ -43,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void tellJoke(View view) {
-        new EndpointsAsyncTask().execute(new Pair<Context, String>(this, "Diana"));
+        new EndpointsAsyncTask(this).execute(new Pair<Context, String>(this, "Diana"));
 
         //  Toast.makeText(this, JokeClass.getJoke(), Toast.LENGTH_SHORT).show();
     }
